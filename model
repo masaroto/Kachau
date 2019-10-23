@@ -1,0 +1,50 @@
+
+var mongoose = require("mongoose");
+
+var pedidoSchema = new mongoose.Schema({
+    prods: [ {type: mongoose.Schema.Types.ObjectId, ref: "prod"} ],
+    preco: Number
+});
+    
+
+module.exports = mongoose.model("pedido",prodSchema);
+  var mongoose = require("mongoose");
+
+var prodSchema = new mongoose.Schema({
+        name: String, 
+        desc: String, 
+        preco: Number,
+        img: String,
+        qtd: Number
+});
+    
+
+module.exports = mongoose.model("prod",prodSchema);
+var mongoose = require("mongoose");
+
+var funcSchema = new mongoose.Schema({
+        Name: String, 
+        LastName: String, 
+        Email: String,
+        Password: String,
+        CPF: String,
+        Telefone: String
+        
+});
+    
+
+module.exports = mongoose.model("func",funcSchema);
+var mongoose = require("mongoose");
+
+var funcSchema = new mongoose.Schema({
+        Name: String, 
+        LastName: String, 
+        Email: String,
+        Password: String,
+        CPF: String,
+        Telefone: String
+        
+});
+    
+
+module.exports = mongoose.model("ger",funcSchema);
