@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var Prod = require("../model/prod");
 var User = require("../model/user");
+var Cart = require("../model/cart");
 
 //mostra produtos
 router.get("/",function(req, res) {
@@ -41,10 +42,6 @@ router.post("/register", function(req,res){
     });
 });
 
-router.get("/login", function(req,res){
-    res.render("login");
-});
-
 router.post("/login",passport.authenticate("local",{
     successRedirect:"/profile",
     failureRedirect: "/login"
@@ -52,11 +49,41 @@ router.post("/login",passport.authenticate("local",{
     console.log(req.user);
 });
 
-router.get("/profile",function(req, res){
+router.get("/profile",isLogged,function(req, res){
     res.send("Bem vindo "+ req.user.username);
     console.log(req.user);
 });
 
+router.get("/carrinho", function(req, res) {
+    // console.log(Cart.preco);
+    res.render("cart", {prods:Cart}); 
+    
+});
+
+
+router.get("/cart/:id", function(req, res, next) {
+    Prod.findById(req.params.id, function(err, prodFound){
+        if(err){
+            return res.redirect('/');
+        }
+        Cart.add(prodFound);
+        Cart.isEmpty = false;
+        req.session.Cart = Cart;
+        // console.log(Cart.items);
+        res.redirect('/carrinho');
+    });
+    // res.render("cart", {prods:prodList}); 
+});
+
+router.get("/cart/delete/:id", function(req, res, next) {
+    console.log(Cart.isEmpty);
+    Cart.delete(req.params.id);
+    res.redirect("/carrinho");
+    console.log(Cart.isEmpty);
+
+
+    
+});
 
 function isLogged(req, res, next){
     if(req.isAuthenticated()){

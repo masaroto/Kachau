@@ -10,7 +10,8 @@ var UserSchema = new mongoose.Schema({
         Adress2: String, 
         City: String, 
         State: String, 
-        CEP: String 
+        CEP: String,
+        Pedido: [ {type: mongoose.Schema.Types.ObjectId, ref: "pedido"} ]
 });
 UserSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model("User", UserSchema);

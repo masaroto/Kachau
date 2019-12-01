@@ -1,23 +1,26 @@
 var express = require("express");
+var session = require("express-session");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
+var MongoStore = require('connect-mongo')(session);
 
 
 var User = require("./model/user");
 
-// var seeds = require("./seeds");
+var seeds = require("./seeds");
 var app = express();
 mongoose.connect("mongodb://localhost/kachau");
 
 app.use(require("express-session")({
     secret: "That's the secret phrase I use it to password",
     saveUninitialized: false,
-    resave: false
-    
+    resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection}),
+    cookie: {maxAge: 180 * 60 * 100}
 }));
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -44,22 +47,16 @@ var propRoute = require("./routes/proprietario");
 var clienteRoute = require("./routes/cliente");
 
 
-
-
+// seeds();
 app.use("/adm/func",funcRoute);
 app.use("/adm/ger",gerRoute);
 app.use("/adm/prop",propRoute);
 app.use("/",clienteRoute);
 
 
-
-
-
-
-
-
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
+    res.locals.session = req.session;
     next();
 });
 

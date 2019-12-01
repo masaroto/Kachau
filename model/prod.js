@@ -1,7 +1,7 @@
   var mongoose = require("mongoose");
 
 var prodSchema = new mongoose.Schema({
-        name: String, 
+        name: String,
         desc: String, 
         preco: Number,
         img: String,
