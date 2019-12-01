@@ -4,7 +4,7 @@
         <form action="/adm/ger/func/" method="POST">
           <div class="form-row">
               <div class="col-md-10">
-                <input type="text" class="form-control m-2" name="func[Name]" placeholder="Nome do funcionário">
+                <input type="text" class="form-control m-2" name="func[username]" placeholder="Nome do funcionário">
             </div>
                   
             <div class="col-auto my-1">
@@ -44,12 +44,12 @@
                 <tr>
                       <th scope="row">
                           
-                          <form class="form-inline" action="/adm/ger/func/<%=user._id%>?_method=DELETE" method="POST">
+                          <form class="form-inline" action="/adm/ger/func/delete/<%=user._id%>?_method=DELETE" method="POST">
                             <a class="btn btn-outline-success my-2 my-sm-0" href="/adm/ger/func/<%=user._id %>">Edit</a>
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Delete</button>
                           </form>
                       </th>
-                      <td><%=user.Name%> <%=user.LastName%></td>
+                      <td><%=user.username%> <%=user.LastName%></td>
                       <td><%=user.Email%></td>
                       <td><%=user.CPF%></td>
                       <td><%=user.Telefone%></td>

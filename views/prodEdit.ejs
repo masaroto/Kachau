@@ -1,0 +1,51 @@
+<% include partials/headerFunc.ejs %>
+<div class="container-fluid mt-4">
+    <div class="card mb-3" style="max-width: 720px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="<%=prod.img%>" class="card-img">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%=prod.name%></h5>
+            <p class="card-text"><%=prod.desc%></p>
+            <p class="card-text">R$ <%=prod.preco%></p>
+            <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="collapse" href="#input1" role="button" aria-expanded="false" aria-controls="collapseExample">Edit</a>
+              <div class="collapse" id="input1">
+            <div class="card card-body">
+                <h5>Editar Produto</h5>
+        	    <form action="/adm/func/prod/edit/<%=prod._id%>?_method=PUT" method="POST">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Nome*</label>
+                      <input type="text" class="form-control" name="produto[name]" value="<%=prod.name%>" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Preço*</label>
+                      <input type="number" class="form-control" name="produto[preco]" value="<%=prod.preco%>" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Descrição*</label>
+                    <textarea class="form-control" aria-label="With textarea" name="produto[desc]"> <%=prod.desc%></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress2">Image</label>
+                    <input type="text" class="form-control" name="produto[img]" value="<%=prod.img%>">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Quantidade</label>
+                      <input type="number" class="form-control" name="produto[qtd]" value="<%=prod.qtd%>" required>
+                    </div>
+                  </div>
+                  <button type="submit" class="mb-4 btn btn-primary">Atualizar</button>
+                </form>
+                    
+            </div>
+      </div>
+        </div>
+      </div>
+    </div>
+</div>	
+<% include partials/footer.ejs %>

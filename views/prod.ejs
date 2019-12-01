@@ -19,8 +19,8 @@
                     <td><%=prod.qtd%></td>
                     <td>R$ <%=prod.preco%></td>
                     <td> 
-                        <form class="form-inline" action="/prod/<%=prod._id%>?_method=DELETE" method="POST">
-                            <a class="btn btn-outline-success my-2 my-sm-0" href="/prod/<%=prod._id %>">Edit</a>
+                        <form class="form-inline" action="/adm/func/prod/delete/<%=prod._id%>?_method=DELETE" method="POST">
+                            <a class="btn btn-outline-success my-2 my-sm-0" href="/adm/func/prod/edit/<%=prod._id %>">Edit</a>
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Delete</button>
                         </form>
                     </td>

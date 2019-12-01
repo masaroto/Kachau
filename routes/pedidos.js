@@ -1,10 +1,20 @@
+var express = require("express");
+var router = express.Router();
+var Ger = require("../model/pedidos");
 
-var mongoose = require("mongoose");
 
-var pedidoSchema = new mongoose.Schema({
-    prods: [ {type: mongoose.Schema.Types.ObjectId, ref: "prod"} ],
-    preco: Number
+router.post("/finalizar" ,function(req, res) {
+    Pedido.create(req.user._id, function(err, user) {
+        if(err){
+            console.log(err);
+        } else{
+           
+            res.send("finalizado");
+        }
+    });
+    
+    
 });
     
 
-module.exports = mongoose.model("pedido",prodSchema);
+module.exports = router;

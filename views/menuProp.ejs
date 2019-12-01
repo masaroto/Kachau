@@ -1,0 +1,66 @@
+<% include partials/headerProp.ejs %>
+	
+	
+<div class="container">
+  <form action="/pu/adm/ger/" method="POST">
+    <div class="form-row">
+	    <div class="col-md-10">
+	      <input type="text" class="form-control m-2" name="func[Name]" placeholder="Nome do Gerente">
+      </div>
+	        
+      <div class="col-auto my-1">
+	      <button type="submit" class="btn btn-primary my-1">search</button> 
+	    </div>
+	  </div>
+	 
+	 
+	</form>
+	<form action="/pu/adm/ger" method="POST">
+        <div class="form-row">
+	            <div class="col-md-10">
+	              <input type="text" class="form-control m-2" name="func[CPF]" placeholder="CPF do Gerente">
+	            </div>
+	        
+	        <div class="col-auto my-1">
+	            <button type="submit" class="btn btn-primary my-1">search</button> 
+	        </div>
+	      </div>  
+	    </form>
+</div>
+	
+	<table class="table table-light table-striped container-fluid">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% var i =0;%>
+      <%users.forEach(function(user){%>
+        
+	      <tr>
+                <th scope="row">
+                    
+                    <form class="form-inline" action="/adm/prop/ger/delete/<%=user._id%>?_method=DELETE" method="POST">
+                      <a class="btn btn-outline-success my-2 my-sm-0" href="/adm/prop/edit/<%=user._id %>">Edit</a>
+                      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Delete</button>
+                    </form>
+                </th>
+                <td><%=user.username%> <%=user.LastName%></td>
+                <td><%=user.Email%></td>
+                <td><%=user.CPF%></td>
+                <td><%=user.Telefone%></td>
+        </tr>
+                
+            
+	    <% }); %>
+        
+        
+    </tbody>
+  </table>
+
+<% include partials/footer.ejs %>
