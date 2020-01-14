@@ -18,8 +18,6 @@ router.get("/",function(req, res) {
    
 });
 
-
-
 //Create Cliente
 router.get("/register",function(req,res){
     res.render("register.ejs");
