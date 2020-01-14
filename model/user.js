@@ -7,7 +7,7 @@ var UserSchema = new mongoose.Schema({
         Email: String,
         Password: String,
         Adress: String, 
-        Adress2: String, 
+        CPF: Number, 
         City: String, 
         State: String, 
         CEP: String,

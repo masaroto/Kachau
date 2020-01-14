@@ -31,7 +31,7 @@ router.post("/register", function(req,res){
         LastName: req.body.UserLastName,
         Email: req.body.UserEmail,
         Adress: req.body.UserAddress, 
-        Adress2: req.body.UserAddress2, 
+        CPF: req.body.UserCPF, 
         City: req.body.UserCity, 
         State:req.body.UserState, 
         CEP: req.body.UserCEP}),req.body.password, function(err,user){
