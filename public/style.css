@@ -1,0 +1,109 @@
+html {
+    height: 250%;
+    
+}
+body{
+    font-family: "Lato";
+    height: 100%;
+
+}
+
+.background{
+    background-size: cover;
+    background-position: center; 
+    background: #bdc3c7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    
+}
+
+.content{
+    color: white;
+	padding-top: 10%;
+	text-align: center;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+hr {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.container-produto{
+    height: 100%;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 100px;
+	
+}
+
+.background-produto{
+	padding-left: 80px;
+	background-color: white;
+	color: black;
+	border-radius: 5px;
+	padding-top: 40px;
+	padding-bottom: 250px;
+}
+
+/* .thumbnail-produto{
+	padding-top: 12px;
+    height: 450px;
+    background-color: white;
+    border:1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+    
+}
+.thumbnail-adendos{
+	width: 270px;
+    height: 450px;
+	background-color: white;
+    border:1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+}
+.linha{
+	border-bottom:1px dashed gray;
+}
+.par{
+	background: #b9b9b9;
+}
+.impar{
+	background: #ececec;
+}
+.preco-produto{
+	
+	width: 250px;
+	font-size: 40px;
+	color:#029905;
+}
+.container-btn-produto{
+	padding-top: 10px;
+}
+
+.btn-group-lg>.btn, .btn-lg{
+	padding: 15px 50px;
+}
+
+
+.container-produto-pag{
+	padding-top: 63px;
+}
+.nm-produto{
+	color: #4764ab;
+	font-size: 45px;
+}
+.img-container-produto{
+    max-width:412px;
+    max-height:412px;
+    width: 412px;
+    height: 412px;
+}
+.tam{
+	width: 160px;
+} */

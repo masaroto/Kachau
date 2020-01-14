@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
-var funcSchema = new mongoose.Schema({
+var FuncSchema = new mongoose.Schema({
         username: String, 
         LastName: String, 
         Email: String,
@@ -10,5 +10,5 @@ var funcSchema = new mongoose.Schema({
         
 });
 
-funcSchema.plugin(passportLocalMongoose);
-module.exports = mongoose.model("func",funcSchema);
+FuncSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model("Func",FuncSchema);

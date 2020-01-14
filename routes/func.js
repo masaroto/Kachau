@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Prod = require("../model/prod");
+var User = require("../model/user");
 
 //middleware
 function isLogged(req, res, next){
@@ -11,8 +12,15 @@ function isLogged(req, res, next){
 }
 //ROUTES
 router.get("/", function(req, res) {
-        //for pra loopar entre os usarios do BD 
-        res.render("menuFunc");
+   User.find({},function(err,allFunc){
+        if(err){
+            console.log("Erro!!!!");
+            console.log(err);
+        } else {
+            res.render("menuFunc.ejs",{users:allFunc});
+            //users._id id do usuario
+        }
+    }).sort({Name:1}); //ordem alfabética
 });
 
 // prod Create
@@ -26,6 +34,7 @@ router.post("/register/prod", function(req, res) {
                 console.log("ERRO!!!!!!!!!!");
                 }else{
                 console.log("Produto " + produto.name + " inserido com sucesso");
+                res.redirect("/adm/func");
                 }
         });
 });
@@ -62,7 +71,7 @@ router.put("/prod/edit/:id", function(req, res) {
                console.log(err);
            } else {
                console.log(req.body.user);
-               res.redirect("/pu/func/prod");
+               res.redirect("/adm/func/prod");
            }
        });
 });
@@ -79,5 +88,29 @@ router.delete("/prod/delete/:id", function(req, res) {
         });
 });
 
+//Busca Clientes
+router.post("/users/",function(req,res){     
+    
+    User.find(req.body.user,function(err,userFind){
+      if(err){
+          console.log("Erro!!!!");
+          console.log(err);
+      } else {
+          console.log(userFind);
+          res.render("menuFunc.ejs",{users:userFind});
+      }
+   });
+});
 
+//deleta Clientes
+router.delete("/delete/:id", function(req, res){
+    User.findByIdAndRemove(req.params.id, function (err) {
+        if(err){
+            console.log("ERRO!!!!!!!!!!!!!")
+            console.log(err);
+        } else {
+            res.redirect("/adm/func");
+        }
+    });
+});
 module.exports = router;

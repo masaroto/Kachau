@@ -17,15 +17,30 @@ router.get("/", function(req, res) {
             }
         }).sort({Name:1}); //ordem alfabética
 });
+//Relatorios
+router.get("/relvendas", function(req,res){
+    res.render("relVendas");
+});
 
+router.get("/relusuarios", function(req,res){
+    res.render("relUsuarios");
+});
+router.get("/relestoque", function(req,res){
+    Prod.find({},function(err,allProd){
+        if(err){
+            console.log("Erro!!!!");
+            console.log(err);
+        } else {
+            res.render("relEstoque",{prods:allProd});
+        }
+    }).sort({qtd:1});
+});
 //registro de funcionario
 router.get("/register/func",function(req,res){
         res.render("funcRegister.ejs");  
 });
-router.post("/func/",function(req,res){
-        console.log(req.body.func)
-       
-        Func.find(req.body.func,function(err,userFind){
+router.post("/func/",function(req,res){     
+         Func.find(req.body.func,function(err,userFind){
            if(err){
                console.log("Erro!!!!");
                console.log(err);
@@ -35,27 +50,34 @@ router.post("/func/",function(req,res){
         });
 });
     
+router.post("/register/func", function(req,res){
 
-router.post("/register/func",function(req,res){
-        
-        Func.register(req.body.func, req.body.password ,function(err){
-                console.log(req.body.func);
-                if(err){
-                        console.log("Erro");
-                        console.log(err);
-                } else {
-                        console.log("User inserido com sucesso");
-                }
-        });
-        passport.authenticate("local")(req, res, function(){
-                res.redirect("/adm/ger");
-        });
-
+    Func.register(new Func(req.body.func),req.body.password, function(err,user){
+        if(err){
+            console.log(err);
+        }
+       passport.authenticate("local")(req, res, function(){
+           console.log("Cadastrado com sucesso")
+           res.redirect("/login");
+       }); 
+    });
 });
+// router.post("/register/func",function(req,res){
+//     console.log(req.body.func);
+//     Func.register(new Func(req.body.func),req.body.password, function(err,user){
+//         if(err){
+//             console.log(err);
+//         }
+//        passport.authenticate("local")(req, res, function(){
+//            console.log("Cadastrado com sucesso")
+//            res.redirect("/login");
+//        }); 
+//     });  
+// });
 
 //deletar funcionarios
 router.delete("/func/delete/:id", function(req, res){
-        Func.findByIdAndRemove(req.params.id,function (err) {
+        Func.findByIdAndRemove(req.params.id, function (err) {
             if(err){
                 console.log("ERRO!!!!!!!!!!!!!")
                 console.log(err);
@@ -68,7 +90,6 @@ router.delete("/func/delete/:id", function(req, res){
 //update funcionario
 
 router.get("/func/:id", function(req, res) {
-        //for pra loopar entre os usarios do BD 
         Func.findById(req.params.id,function(err,foundUser){
             if(err){
                 console.log("Erro!!!!");
@@ -93,18 +114,5 @@ router.put("/func/:id", function(req, res) {
             }
         });
 });
-
-//deletar funcionario
-router.delete("/func/delete/:id", function(req, res){
-        Func.findByIdAndRemove(req.params.id,function (err) {
-            if(err){
-                console.log("ERRO!!!!!!!!!!!!!")
-                console.log(err);
-            } else {
-                res.redirect("/adm/ger");
-            }
-        });
-});
-    
 
 module.exports = router;

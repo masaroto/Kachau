@@ -1,3 +1,63 @@
-<% include partials/headerFunc.ejs %>
-    <h1>Menu do funcionario</h1>
-<% include partials/footer.ejs %>
+<%include partials/headerFunc.ejs%>
+
+<div class="container">
+        <form action="/adm/func/users/" method="POST">
+          <div class="form-row">
+              <div class="col-md-10">
+                <input type="text" class="form-control m-2" name="user[username]" placeholder="Nome do cliente">
+            </div>
+                  
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary my-1">search</button> 
+              </div>
+            </div>
+           
+           
+          </form>
+      </div>
+          
+          <table class="table table-light table-striped container-fluid">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col">Endereço</th>
+
+            </tr>   
+          </thead>
+          <tbody>
+            <% var i =0;%>
+            <%users.forEach(function(user){%>
+              
+                <tr>
+                      <th scope="row">
+                          
+                          <form class="form-inline" action="/adm/func/delete/<%=user._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Delete</button>
+                          </form>
+                      </th>
+                      <td><%=user.username%> <%=user.LastName%></td>
+                      <td><%=user.Email%></td>
+                      <td>
+                        <%=user.City%> - <%=user.State%>
+                        <a class="btn btn-outline-default btn-sm" data-toggle="collapse" href="#input<%=i%>" role="button" aria-expanded="false" aria-controls="collapseExample">Show more</a>
+                        <div class="collapse" id="input<%=i%>">
+                          <div class="card card-body">
+                            <p>Endereço1: <%= user.Adress%></p>
+                            <p>Endereço2: <%= user.Adress2%></p>
+                              
+                          </div>
+                          <%i++%>
+                        </div>
+                      </td>
+              </tr>
+                      
+                  
+              <% }); %>
+              
+              
+          </tbody>
+        </table>
+
+<% include partials/footer.ejs%>
