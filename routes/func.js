@@ -90,11 +90,13 @@ router.delete("/prod/delete/:id", function(req, res) {
 
 //Busca Clientes
 router.post("/users/",function(req,res){     
-    User.find(req.body.func,function(err,userFind){
+    
+    User.find(req.body.user,function(err,userFind){
       if(err){
           console.log("Erro!!!!");
           console.log(err);
       } else {
+          console.log(userFind);
           res.render("menuFunc.ejs",{users:userFind});
       }
    });

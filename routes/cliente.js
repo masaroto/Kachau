@@ -6,7 +6,7 @@ var User = require("../model/user");
 var Cart = require("../model/cart");
 var Pedido = require("../model/pedidos");
 
-//mostra produtos
+//mostra produtos / pagina principal
 router.get("/",function(req, res) {
     Prod.find({}, function(err, allProd) {
         if(err){
@@ -17,6 +17,8 @@ router.get("/",function(req, res) {
     });
    
 });
+
+
 
 //Create Cliente
 router.get("/register",function(req,res){
@@ -43,6 +45,8 @@ router.post("/register", function(req,res){
     });
 });
 
+
+//route do login
 router.post("/login",passport.authenticate("local",{
     successRedirect:"/",
     failureRedirect: "/register"
@@ -50,18 +54,20 @@ router.post("/login",passport.authenticate("local",{
     console.log(req.user);
 });
 
-router.get("/profile",isLogged,function(req, res){
-    res.send("Bem vindo "+ req.user.username);
-    console.log(req.user);
-});
+// router.get("/profile",isLogged,function(req, res){
+//     res.send("Bem vindo "+ req.user.username);
+//     console.log(req.user);
+// });
 
+
+//Routo do carrinho
 router.get("/carrinho", function(req, res) {
     // console.log(Cart.preco);
     res.render("cart", {prods:Cart}); 
     
 });
 
-
+//Botao de add no carrinho
 router.get("/cart/:id", function(req, res, next) {
     Prod.findById(req.params.id, function(err, prodFound){
         if(err){
@@ -76,16 +82,20 @@ router.get("/cart/:id", function(req, res, next) {
     // res.render("cart", {prods:prodList}); 
 });
 
+//botao de deletar do carrinho
 router.get("/cart/delete/:id", function(req, res, next) {
     Cart.delete(req.params.id);
     res.redirect("/carrinho");  
 });
 
+//pagina do produto
 router.get("/produto/:nome", function(req, res){
     res.render("prodPage");
 });
 
-router.get("/pedidos", function(req,res){
+//ROUTE DE PEDIDOS 
+//Mostra todos os pedidos do cliente
+router.get("/pedidos", isLogged ,function(req,res){
     Pedido.find({},function(err,pedidos){
         if(err){
             console.log("Deu ruim");
@@ -94,39 +104,49 @@ router.get("/pedidos", function(req,res){
     })
 });
 
-router.get("/pedidos/final", function(req, res){
+//Route de finalizar pedidos
+router.get("/pedidos/final", isLogged,function(req, res){
     res.render("finalizarPedido", {cart:Cart});
 });
-router.post("/pedidos/final",function(req, res){
-    var prodList = []
 
+router.post("/pedidos/final",isLogged,function(req, res){
+    var prodList = []
+    
     for(var x in Cart.items){
         prodList.push(x);
     }
+    if(prodList.length){
+        newPedido = {prods: prodList,
+            status: "Encaminhando",
+            endereco: req.user.Adress,
+            transporte: req.body.transporte,
+            pagamento: req.body.pagamento,
+            data: new Date(),
+            preco: Cart.precoTotal};
 
-    newPedido = {prods: prodList,
-        status: "Encaminhando",
-        endereco: req.user.Adress,
-        transporte: req.body.transporte,
-        pagamento: req.body.pagamento,
-        data: new Date(),
-        preco: Cart.precoTotal};
+        Pedido.create(newPedido,function(err){
+            if(err){
+                console.log("Deu ruim");
+            }
+            Cart.items = {};
+            Cart.isEmpty = true;
+            Cart.precoTotal = 0;
 
-    Pedido.create(newPedido,function(err){
-        if(err){
-            console.log("Deu ruim");
-        }
-    });
-
+        });
+    } else {
+        console.log("Sem produtos no carrinho");
+    }
 
 });
 
+//fazer logout
 router.get("/logout", function(req, res) {
     req.session.destroy(function () {
         res.redirect('/'); //Inside a callback… bulletproof!
   });
 });
 
+//middleware para verificar se o usuario esta logado
 function isLogged(req, res, next){
     if(req.isAuthenticated()){
         return next();
