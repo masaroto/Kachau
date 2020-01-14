@@ -1,0 +1,35 @@
+<% include partials/headerGer.ejs%>
+
+<div class="container-fluid">
+    <table class="table table-light table-striped">
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Nome</th>
+<th scope="col">Quantidade</th>
+<th scope="col">Vendidos no mês</th>
+</tr>
+</thead>
+<tbody>
+<%prods.forEach(function(prod){%>
+
+<tr>
+    <td>
+        <% if(prod.qtd<15){ %>
+        ESTADO CRITICO
+        <% }%>
+    </td>
+    <td><%=prod.name%></td>
+    <td><%=prod.qtd%></td>
+    <td>20</td>
+</tr>
+        
+    
+<% }); %>
+
+
+</tbody>
+</table>
+</div>
+
+<% include partials/footer.ejs%>

@@ -9,8 +9,6 @@
             <% if(prods.isEmpty){%>
                 <h5>Carrinho vazio</h5>
             <% } else {%>
-                
-                
                 <h5>Produtos:</h5>
                 <div class="row mt-2">
 	                <%var prod;%>
@@ -38,7 +36,7 @@
 	                
 	    </div>
                <h5 class="ml-2">Total: R$<%=prods.precoTotal%></h5> 
-               <a class="btn btn-success" href="/compra">Finalizar compra</a>
+               <a class="btn btn-success" href="/pedidos/final">Finalizar Pedido</a>
             <% } %>
         </div>
     </div>

@@ -34,6 +34,7 @@ router.post("/register/prod", function(req, res) {
                 console.log("ERRO!!!!!!!!!!");
                 }else{
                 console.log("Produto " + produto.name + " inserido com sucesso");
+                res.redirect("/adm/func");
                 }
         });
 });
@@ -70,7 +71,7 @@ router.put("/prod/edit/:id", function(req, res) {
                console.log(err);
            } else {
                console.log(req.body.user);
-               res.redirect("/pu/func/prod");
+               res.redirect("/adm/func/prod");
            }
        });
 });

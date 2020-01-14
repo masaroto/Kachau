@@ -20,7 +20,7 @@ app.use(require("express-session")({
     saveUninitialized: false,
     resave: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection}),
-    cookie: {maxAge: 180 * 60 * 100}
+    cookie: {maxAge: 180 * 600 * 100}
 }));
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -45,12 +45,13 @@ var funcRoute = require("./routes/func");
 var gerRoute = require("./routes/ger");
 var propRoute = require("./routes/proprietario");
 var clienteRoute = require("./routes/cliente");
-
+// var pedidosRoute = require("./routes/pedidos");
 
 // seeds();
 app.use("/adm/func",funcRoute);
 app.use("/adm/ger",gerRoute);
 app.use("/adm/prop",propRoute);
+// app.use("/pedidos", pedidosRoute);
 app.use("/",clienteRoute);
 
 

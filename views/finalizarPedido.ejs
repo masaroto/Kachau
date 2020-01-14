@@ -1,0 +1,85 @@
+<% include partials/header.ejs %>
+    <div class="container card mt-4">
+        <form action="/pedidos/final" method="POST">
+        <div class="row justify-content-start mt-3" style="height: 30em;">
+            <div class="col-6">
+                <h4>Enreço a ser usado: </h4>
+                
+                <!-- <h5><%=currentUser.Adress%></h5> -->
+
+                <div class="mt-5 border-bottom"></div>
+                
+                <h4 class="mt-2">Forma de pagamento: </h4>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="pagamento" id="pagamento1" value="Pagamento 1" checked>
+                  <label class="form-check-label" for="pagamento1">
+                    Pagamento 1
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="pagamento" id="pagamento2" value="Pagamento 2">
+                  <label class="form-check-label" for="pagamento2">
+                    Pagamento 2
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="pagamento" id="pagamento3" value="Pagamento 3">
+                  <label class="form-check-label" for="pagamento3">
+                    Pagamento 3
+                  </label>
+                </div>
+                  
+                  
+            
+            </div>
+            <div class="col-6 border-left">
+                <div class="">
+                    <h4>Selecionar Método de transporte:</h4>
+
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="radio" name="transporte" id="transporte11" value="Transporte 1" checked>
+                        <label class="form-check-label" for="transporte11">
+                          Transporte 1 - Preço: 15R$
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="transporte" id="transporte22" value="Transporte 2">
+                        <label class="form-check-label" for="transporte22">
+                          Transporte 2 - Preço: 15R$
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="transporte" id="transporte33" value="Transporte 3">
+                        <label class="form-check-label" for="transporte33">
+                            Transporte 3 - Preço: 15R$
+                        </label>
+                      </div>
+                </div>
+
+                <h4 class="mt-4">Produtos: </h4>
+                <% var prodList = cart.items;%>
+                <ul class="list-group mt-4">
+                    <%for(var x in prodList){%>
+                        <%prod = prodList[x];%>
+                        <li class="list-group-item">
+                            <%= prod.name%> (<%=prod.qtd%>) - 
+                            <%if(prod.qtd > 1) {%>
+                                Preço: <%= prod.qtd * prod.preco%>
+                            <% } else {%>
+                                Preço: <%=prod.preco%>
+                            <% } %>
+                        </li>
+                    <% } %>
+                    
+                    
+                  </ul>
+                <h5 class="mt-4">Preço total: <%=cart.precoTotal%> </h5>
+                <button type="submit" class="btn btn-success mt-3">Finaliar compra</button>
+
+            </div>
+          </div>
+
+        </form>
+    </div>
+
+ <% include partials/footer.ejs %>

@@ -17,7 +17,24 @@ router.get("/", function(req, res) {
             }
         }).sort({Name:1}); //ordem alfabética
 });
+//Relatorios
+router.get("/relvendas", function(req,res){
+    res.render("relVendas");
+});
 
+router.get("/relusuarios", function(req,res){
+    res.render("relUsuarios");
+});
+router.get("/relestoque", function(req,res){
+    Prod.find({},function(err,allProd){
+        if(err){
+            console.log("Erro!!!!");
+            console.log(err);
+        } else {
+            res.render("relEstoque",{prods:allProd});
+        }
+    }).sort({qtd:1});
+});
 //registro de funcionario
 router.get("/register/func",function(req,res){
         res.render("funcRegister.ejs");  
